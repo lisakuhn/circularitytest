@@ -36,7 +36,7 @@ From source:
 
 Everything you need to run circularitytest should be specified in the simple [YAML](http://yaml.org/) format. 
 An overview of all the options can be found [here](configs/README.md). \
-Configurations to run the examples given in [[1](#References)] can be found in the [`configs`](#configs) directory.
+Configurations to run the examples given in [[1](#References)] can be found in the [`configs`](configs) directory.
 
 
 ### The Circularity Test
