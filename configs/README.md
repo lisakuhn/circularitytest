@@ -28,29 +28,26 @@ data:                                           !! Mandatory !!
 
 features:                                       # names of features you want to use in dataset
     
-    # list format is possible   
-    - feature_a
+    - feature_a                                 # list format is possible   
     - feature_b
 
-    OR:
-    # dictionary format is possible: 
-    # if you use a dictionary, you can specify the GAM terms for each feature
-    # Please refer to https://pygam.readthedocs.io/en/latest/api/api.html#terms for all the options
-    feature_a:
+    OR:                                         # dictionary format is possible: 
+                                                # if you use a dictionary, you can specify the GAM terms for each feature
+    feature_a:                                  # Please refer to https://pygam.readthedocs.io/en/latest/api/api.html#terms for all the options    
         "term_type": linear
     feature_b:
         "term_type": spline
-        spec_2: value_2                 # here you can add any of the pygam options
+        spec_2: value_2                         # here you can add any of the pygam options
     feature_c: 
 
-target: "target_name"                   !! Mandatory !!    # name of your target in dataset
-threshold: 0.001                        # threshold for the nullification: standard deviation of a smooth term
-fit_threshold: 90                       # threshold for the Deviance explained fit
+target: "target_name"                           !! Mandatory !!    # name of your target in dataset
+threshold: 0.001                                # threshold for the nullification: standard deviation of a smooth term
+fit_threshold: 90                               # threshold for the Deviance explained fit
 
-store_result_csv: "your_file.csv"       #add this option if you want to store the individual results of each GAM in a csv
+store_result_csv: "your_file.csv"               #add this option if you want to store the individual results of each GAM in a csv
 
-GAM:                                    # Specify your pygam GAM, please refer to 
-                                        #https://pygam.readthedocs.io/en/latest/api/gam.html#gam for all options
+GAM:                                            # Specify your pygam GAM, please refer to 
+                                                #https://pygam.readthedocs.io/en/latest/api/gam.html#gam for all options
     distribution: "normal"
     link: "identity"
     
