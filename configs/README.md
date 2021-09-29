@@ -52,32 +52,31 @@ GAM:                                            # Specify your pygam GAM, please
     link: "identity"
     
 
-plot: #plotting options
+plot:                                           #plotting options
     ylim: y_min, y_max
     
     
-    categorical:                        #combine categorical features in one subplot
+    categorical:                                #combine categorical features in one subplot
         combine:
             - feature_a
             - feature_b
             - feature_c
         combined_name: "combined_feature"
 
-    feature_a:                           #specify options for the plot of feature_a
+    feature_a:                                  #specify options for the plot of feature_a
         xlim: x_min, x_max
-        x: 100                          # how many data points the smooth therm should have
-        n_splines: 9                    # how many splines this feature should have in the plot
+        x: 100                                  # how many data points the smooth therm should have
+        n_splines: 9                            # how many splines this feature should have in the plot
 
-    types:                              # specify the types of smooth terms plots you want 
-        - circular                      # plot with circular features only
-        - non-circular                  # plot with non-circular features only
-        - all                           # plot with all features
-        - decision_function             # plot the circular features against the decision_function specified below
+    types:                                      # specify the types of smooth terms plots you want 
+        - circular                              # plot with circular features only
+        - non-circular                          # plot with non-circular features only
+        - all                                   # plot with all features
+        - decision_function                     # plot the circular features against the decision_function specified below
 
 
-decision_function:                      # Specify the decision function in your data for plotting
-                                        # a target class can depend on multiple or just one feature value
-    target_a: 
+decision_function:                              # Specify the decision function in your data for plotting
+    target_a:                                   # a target class can depend on multiple or just one feature value
         feature_a: value
         feature_b: value
     target_b: 
