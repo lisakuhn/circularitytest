@@ -12,21 +12,21 @@ In the config you can specify options for smooth terms and GAMs, for full option
 ````
 name: "name_of_your_test" 
 
-data:                       !! Mandatory !!
-    train: "path/to/data/file.rds"         !! Mandatory !!
+data:                                           !! Mandatory !!
+    train: "path/to/data/file.rds"              !! Mandatory !!
 
-    preprocess: #if data preprocessing is necessary
-        columns: # names of columns 
+    preprocess:                                 #if data preprocessing is necessary
+        columns:                                # names of columns 
             - column1
             - column2
             - columnx
 
-        replace: # replace values in columns: e.g. string values with numerical values
+        replace:                                # replace values in columns: e.g. string values with numerical values
             "value_a": replacement_a
             "value_b": replacement_b
             
 
-features: # names of features you want to use in dataset
+features:                                       # names of features you want to use in dataset
     
     # list format is possible   
     - feature_a
@@ -40,16 +40,17 @@ features: # names of features you want to use in dataset
         "term_type": linear
     feature_b:
         "term_type": spline
-        spec_2: value_2 # here you can add any of the pygam options
+        spec_2: value_2                 # here you can add any of the pygam options
     feature_c: 
 
-target: "target_name"    !! Mandatory !!    # name of your target in dataset
-threshold: 0.001        # threshold for the nullification: standard deviation of a smooth term
-fit_threshold: 90       # threshold for the Deviance explained fit
+target: "target_name"                   !! Mandatory !!    # name of your target in dataset
+threshold: 0.001                        # threshold for the nullification: standard deviation of a smooth term
+fit_threshold: 90                       # threshold for the Deviance explained fit
 
-store_result_csv: "your_file.csv"  #add this option if you want to store the individual results of each GAM in a csv
+store_result_csv: "your_file.csv"       #add this option if you want to store the individual results of each GAM in a csv
 
-GAM:    # Specify your pygam GAM, please refer to https://pygam.readthedocs.io/en/latest/api/gam.html#gam for all options
+GAM:                                    # Specify your pygam GAM, please refer to 
+                                        #https://pygam.readthedocs.io/en/latest/api/gam.html#gam for all options
     distribution: "normal"
     link: "identity"
     
@@ -58,27 +59,27 @@ plot: #plotting options
     ylim: y_min, y_max
     
     
-    categorical:    #combine categorical features in one subplot
+    categorical:                        #combine categorical features in one subplot
         combine:
             - feature_a
             - feature_b
             - feature_c
         combined_name: "combined_feature"
 
-    feature_a:          #specify options for the plot of feature_a
+    feature_a:                           #specify options for the plot of feature_a
         xlim: x_min, x_max
-        x: 100          # how many data points the smooth therm should have
-        n_splines: 9    # how many splines this feature should have in the plot
+        x: 100                          # how many data points the smooth therm should have
+        n_splines: 9                    # how many splines this feature should have in the plot
 
-    types:                  # specify the types of smooth terms plots you want 
-        - circular          # plot with circular features only
-        - non-circular      # plot with non-circular features only
-        - all               # plot with all features
-        - decision_function # plot the circular features against the decision_function specified below
+    types:                              # specify the types of smooth terms plots you want 
+        - circular                      # plot with circular features only
+        - non-circular                  # plot with non-circular features only
+        - all                           # plot with all features
+        - decision_function             # plot the circular features against the decision_function specified below
 
 
-decision_function: # Specify the decision function in your data for plotting
-    # a target class can depend on multiple or just one feature value
+decision_function:                      # Specify the decision function in your data for plotting
+                                        # a target class can depend on multiple or just one feature value
     target_a: 
         feature_a: value
         feature_b: value

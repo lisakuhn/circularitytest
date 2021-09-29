@@ -39,7 +39,7 @@ An overview of all the options can be found [here](configs/README.md). \
 Configurations to run the examples given in [[1](#References)] can be found in the [`configs`](configs) directory.
 
 
-### The Circularity Test
+## The Circularity Test
 
 Following is a short introduction to the circularity test and its purpose.
 Please refer to [[1](#references)] (chapter 2.4.3) for the full definitions, intuition and further explanations 
