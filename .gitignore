@@ -1,0 +1,4 @@
+/example_notebooks/.ipynb_checkpoints/
+.idea/
+__pycache__/
+circularitytest/__pycache__/

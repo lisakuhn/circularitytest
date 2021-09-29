@@ -1,0 +1,48 @@
+name: "liver_sofa_example"
+
+data:
+  train: "data/liver_sofa_example/liver_dataset-training_nostd.rds"
+
+
+features:
+  - bili
+  - asat
+  - quinr
+  - thrombo
+  - alat
+
+
+target: "target"
+threshold: 0.19
+
+GAM:
+  link: "identity"
+  distribution: "normal"
+
+
+plot: #plot limits
+  ylim: -0.5 , 4.3
+  bili:
+    n_splines: 100
+    xlim: 0, 15
+  quinr:
+    xlim: 0.8, 4
+
+  types:
+    - circular
+    - non-circular
+    - all
+    - decision_function
+
+decision_function:
+  0:
+    bili: 0
+  1:
+    bili: 1.2
+  2:
+    bili: 1.9
+  3:
+    bili: 5.9
+  4:
+    bili: 11.9
+

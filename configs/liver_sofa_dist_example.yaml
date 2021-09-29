@@ -1,0 +1,52 @@
+name: "liver_sofa_dist_example"
+
+data:
+  train: "data/liver_sofa_example/test_set_with_sofa_predictions.rds"
+
+features:
+  - bili
+  - thrombo
+  - hzv
+  - svri
+  - urine24
+
+
+target: "sofa_circ"
+threshold: 0.12
+fit_threshold: 90
+
+
+GAM:
+  link: "identity"
+  distribution: "normal"
+
+
+plot: #plot limits
+  ylim: -1 , 4.3
+  bili:
+    n_splines: 100
+    xlim: 0, 15
+  thrombo:
+    xlim: 0, 550
+  hzv:
+    xlim: 0, 18
+  svri:
+    xlim: 0, 7000
+
+  types:
+    - circular
+    - non-circular
+    - all
+    - decision_function
+
+decision_function:
+  0:
+    bili: 0
+  1:
+    bili: 1.2
+  2:
+    bili: 1.9
+  3:
+    bili: 5.9
+  4:
+    bili: 11.9

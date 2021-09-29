@@ -1,0 +1,58 @@
+name: "kidney_sofa_dist_example"
+
+data:
+  train: "data/kidney_sofa_example/test_set_with_sofa_predictions.rds"
+
+features:
+  - urine24
+  - crea
+  - calcium
+  - chlorid
+  - bun
+
+target: "sofa_circ"
+threshold: 0.27
+fit_threshold: 89
+
+
+GAM:
+  link: "identity"
+  distribution: "normal"
+
+
+plot: #plot limits
+  ylim: -1 , 4.3
+  urine24:
+    n_splines: 150
+    n: 1000
+    xlim: 0, 1000
+  crea:
+    xlim: 0.15, 5.2
+    n_splines: 125
+  calcium:
+    xlim: 0.5, 1.6
+  bun:
+    xlim: 10, 180
+  chlorid:
+    xlim: 95, 140
+
+  types:
+    - circular
+    - non-circular
+    - all
+    - decision_function
+
+decision_function:
+  0:
+    crea: 0
+    urine24: 500
+  1:
+    crea: 1.2
+  2:
+    crea: 1.9
+  3:
+    crea: 3.4
+    urine24: 200
+  4:
+    crea: 4.9
+    urine24: 0

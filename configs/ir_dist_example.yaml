@@ -1,0 +1,71 @@
+## Please note:
+# Unlike specified in the book and the accompanying code, I had trouble with the convergence of some of the GAMs
+# when using a binomial distribution and logit link.
+# However, unlike in mgcv, the circularity test (convergence of GAMs) worked perfectly when
+# using a normal distribution and identity link.
+# Therefore the distribution and link in this example are different from those in the book.
+
+name: "ir_dist_example"
+
+data:
+  train: "data/ir_example/ir_testset_with_pred.rds"
+
+  preprocess: #Preprocess data for GAM training
+    columns:
+      - cited_inventor
+      - cited_examiner
+      - cited_family
+
+    replace: # Replace categorical values by numeric
+      "no": 0
+      "yes": 1
+
+
+features:
+  cited_inventor:
+    term_type: linear
+    penalties: "none"
+  cited_examiner:
+    term_type: linear
+    penalties: "none"
+  cited_family:
+    term_type: linear
+    penalties: "none"
+
+  score_neural:
+  score_tfIdf:
+
+target: "score_bief" # score of the neural network trained on all features
+threshold: 0.001
+fit_threshold: 90
+
+
+plot: #plot limits
+  ylim: -0.5 , 1.5
+  categorical:
+    combine:
+      - cited_inventor
+      - cited_examiner
+      - cited_family
+    combined_name: "citation_feature"
+    #cited_family:
+
+
+  citation_feature:
+    xlim: 0,3
+  score_neural:
+    xlim: -20, 15
+
+  types:
+    - circular
+    - non-circular
+    - all
+    - decision_function
+
+
+decision_function:
+  0: None
+  1:
+    - cited_inventor
+    - cited_examiner
+    - cited_family

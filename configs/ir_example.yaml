@@ -1,0 +1,67 @@
+name: "ir_example"
+
+data:
+  train: "data/ir_example/ir_trainset.rds"
+
+  preprocess: #Preprocess data for GAM training
+    columns:
+      - cited_inventor
+      - cited_examiner
+      - cited_family
+
+    replace: # Replace categorical values by numeric
+      "no": 0
+      "yes": 1
+
+
+features:
+  cited_inventor:
+    term_type: linear
+    penalties: 'none'
+  cited_examiner:
+    term_type: linear
+    penalties: 'none'
+  cited_family:
+    term_type: linear
+    penalties: 'none'
+
+  score_neural:
+  score_tfIdf:
+
+
+target: "relevance"
+
+GAM:
+  distribution: "normal"
+  link: "identity"
+
+
+plot: #plot limits
+  ylim: -0.5 , 3.5
+  categorical:
+    combine:
+      - cited_inventor
+      - cited_examiner
+      - cited_family
+    combined_name: "citation_feature"
+
+
+  citation_feature:
+    xlim: 0,3
+  score_neural:
+    xlim: -20, 15
+
+  types:
+    - circular
+    - non-circular
+    - all
+    - decision_function
+
+decision_function:
+  0: None
+  1: cited_inventor
+  2: cited_examiner
+  3: cited_family
+
+
+
