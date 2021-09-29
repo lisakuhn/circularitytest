@@ -20,7 +20,7 @@ This project requires Python >= 3.7.
 From source: 
 
   1. Clone this repository:
-  `git clone https://github.com/circularitytest/circularitytest.git`
+  `git clone https://github.com/lisakuhn/circularitytest.git`
   2. Install circularitytest and it's requirements:\
   `cd circularitytest`\
   `pip3 install .` (add `--user` for a local installation if necessary).
@@ -35,7 +35,7 @@ From source:
 ## Configuration
 
 Everything you need to run circularitytest should be specified in the simple [YAML](http://yaml.org/) format. 
-An overview of all the options can be found [here](#configs/README.md). \
+An overview of all the options can be found [here](configs/README.md). \
 Configurations to run the examples given in [[1](#References)] can be found in the [`configs`](#configs) directory.
 
 
@@ -101,7 +101,7 @@ feature set.
 ## Step-by-step examples
 
 For easy-to-follow examples of how the circularity test works and what circularitytest does when called, 
-example notebooks for each of the examples in [[1]](#references) can be found in the [`example_notebooks`](#example_notebooks) directory. There, the main procedure 
+example notebooks for each of the examples in [[1]](#references) can be found in the [`example_notebooks`](example_notebooks) directory. There, the main procedure 
 of the circularity test as well as different visualizations are shown in small code chunks.
 
 
