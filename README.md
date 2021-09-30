@@ -28,15 +28,20 @@ From source:
 
 ## Usage
 
-`python3 -m circularitytest --config_path your/config/path`
+Basic usage:
 
+`python3 -m circularitytest --config_path configs/ir_example.yaml`  \
+(here: config `ir_example.yaml`)
+
+Please also have a look at the notebooks in [`example_notebooks`](example_notebooks) to
+see how the individual functions can be used.
 
 
 ## Configuration
 
-Everything you need to run circularitytest should be specified in the simple [YAML](http://yaml.org/) format. 
+Everything you need to run circularitytest from the command line should be specified in the simple [YAML](http://yaml.org/) format. 
 An overview of all the options can be found [here](configs/README.md). \
-Configurations to run the examples given in [[1](#References)] can be found in the [`configs`](configs) directory.
+Configurations to run all the examples given in [[1](#References)] can be found in the [`configs`](configs) directory.
 
 
 ## The Circularity Test
@@ -46,8 +51,8 @@ Please refer to [[1](#references)] (chapter 2.4.3) for the full definitions, int
 and examples.
 
 The goal of the circularity test is to identify features in a ML dataset
-that allow a reconstruction of the function that defines the gold standard labels of this dataset. \
-If a dataset contains targets that are defined by a deterministic function and the features that define this function (also called *circular features*)
+that allow a reconstruction of the function that defines the gold standard labels. \
+If a dataset contains such targets that are defined by a deterministic function and the features that define this function (also called *circular features*)
 are included in model training, the ML model will only learn to reconstruct the target function and disregard any other features that might be present. \
 This scenario causes problems: While the model will perform (almost) perfectly on data that includes the target-defining
 features, it would fail completely on unseen data where the target-defining features are not available/known beforehand.
@@ -55,7 +60,7 @@ features, it would fail completely on unseen data where the target-defining feat
 To avoid (accidentally) using a model trained on circular features, the circularity test defined below can 
 be applied in two settings: \
     - On a dataset: Apply the circularity test on a dataset where you suspect features defining the target labeling function. \
-    - On a (black-box) model: If you want to know whether a model has used circular features in its training, knowledge
+    - On a (black-box) model: If you want to know whether a model used circular features in its training, knowledge
     distillation can be applied: Perform the circularity test using the predictions of the model as targets. You only need 
     the test set predictions for this.
     
@@ -63,7 +68,7 @@ The circularity test uses interpretable GAMs so that the contribution of each fe
 
 The formal definition of the test is as follows: 
 
-**Definition Circularity Test (2.6)**: \
+**Definition Circularity Test**: \
 Given a dataset of feature-label relations 
 ![formula](https://render.githubusercontent.com/render/math?math=D=\{(x^{n},y^{n})\}^{N}_{n=1})
  where
@@ -98,12 +103,11 @@ feature set.
 
 
 
-## Step-by-step examples
+## Step-by-step visualizations
 
-For easy-to-follow examples of how the circularity test works and what circularitytest does when called, 
+For examples with visualizations of how the circularity test works and what circularitytest does when called, 
 example notebooks for each of the examples in [[1]](#references) can be found in the [`example_notebooks`](example_notebooks) directory. There, the main procedure 
-of the circularity test as well as different visualizations are shown in small code chunks.
-
+of the circularity test as well as different plots are shown in small code chunks.
 
 
 

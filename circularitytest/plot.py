@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ast import literal_eval
 from math import ceil
+import scipy
 
 
 def plot_decision_funct(ax, dec_funct, index, feature=None):
@@ -64,7 +65,7 @@ def plot_decision_funct(ax, dec_funct, index, feature=None):
 
 
 
-def plot_gam_terms(cfg, gam, features, circular_features=None, correct_offset=True,title=None, decision_funct=None):
+def plot_gam_terms(cfg, gam, features, circular_features=None, correct_offset=True,title=None, decision_funct=None, logistic=False):
     """
     Plot term functions for a GAM
     :param cfg: dictionary with plot specifications
@@ -75,6 +76,7 @@ def plot_gam_terms(cfg, gam, features, circular_features=None, correct_offset=Tr
     :param correct_offset: whether to add/ correct the offset in plots for a nicer presentation
     :param title: Title for plot
     :param decision_funct: dictionary with decision function, if given: must be defined for all features
+    :param logistic: whether GAM is a LogisticGAM
     :return:
     """
 
@@ -101,10 +103,10 @@ def plot_gam_terms(cfg, gam, features, circular_features=None, correct_offset=Tr
         if isinstance(indices[i], list):
             plot_categorical_terms(cfg, ax, indices[i], gam, offset=offsets[i],
                                    xtick_names=[features[j] for j in indices[i]], title=titles[i],
-                                   label="Estimated" if decision_funct else "")
+                                   label="Estimated" if decision_funct else "", logistic=logistic)
         else:
             plot_smooth_terms(cfg, ax, indices[i],  gam, offset=offsets[i], feature=titles[i], title=titles[i],
-                              label="Estimated" if decision_funct else "")
+                              label="Estimated" if decision_funct else "", logistic=logistic)
         if decision_funct:
             plot_decision_funct(ax, decision_funct,feature=titles[i], index=indices[i])
 
@@ -119,7 +121,7 @@ def plot_gam_terms(cfg, gam, features, circular_features=None, correct_offset=Tr
     plt.show()
 
 
-def plot_categorical_terms(cfg, ax, indices, gam, offset=0, xtick_names=None, title=None, label=None):
+def plot_categorical_terms(cfg, ax, indices, gam, offset=0, xtick_names=None, title=None, label=None, logistic=False):
     """
     Plots step function for one ore more categorical/linear data terms in Axes subplot
     :param cfg: dictionary with plot specifications
@@ -131,6 +133,7 @@ def plot_categorical_terms(cfg, ax, indices, gam, offset=0, xtick_names=None, ti
     :param xtick_names: names that individual categorical features have to display on x axis
     :param title: title for the subplot
     :param label: label for the term function
+    :param logistic: whether GAM is a LogisticGAM
     :return:
     """
 
@@ -138,7 +141,10 @@ def plot_categorical_terms(cfg, ax, indices, gam, offset=0, xtick_names=None, ti
 
     for j in range(len(indices)):
         XX = gam.generate_X_grid(term=indices[j])
-        smooth_t[:, j + 1] = gam.partial_dependence(term=int(indices[j]), X=XX)
+        if logistic:
+            smooth_t[:, j + 1] = scipy.stats.norm.cdf(gam.partial_dependence(term=int(indices[j]), X=XX))
+        else:
+            smooth_t[:, j + 1] = gam.partial_dependence(term=int(indices[j]), X=XX)
 
     # assuming that each individual feature has just 2 possible values:
     # 0 and x: x will be the last value in grid, everything in between
@@ -155,7 +161,7 @@ def plot_categorical_terms(cfg, ax, indices, gam, offset=0, xtick_names=None, ti
     if title:
         ax.set_title(title)
 
-def plot_smooth_terms(cfg, ax, index, gam, offset=0, feature=None, title=None, label=None):
+def plot_smooth_terms(cfg, ax, index, gam, offset=0, feature=None, title=None, label=None, logistic=False):
     """
     Plots term function for spline terms in Axes subplot
     :param cfg: dictionary with plot specifications
@@ -167,6 +173,7 @@ def plot_smooth_terms(cfg, ax, index, gam, offset=0, feature=None, title=None, l
     :param feature: name of feature
     :param title: title for subplot
     :param label: label for the term function
+    :param logistic: whether GAM is a LogisticGAM
     :return:
     """
     n = (cfg.get(feature) or {}).get("n", 100) if feature in cfg else 100
@@ -185,7 +192,10 @@ def plot_smooth_terms(cfg, ax, index, gam, offset=0, feature=None, title=None, l
     else:
         x1, x2 = np.amin(XX[:, index]), np.amax(XX[:, index])
 
-    ax.plot(XX[:, index], gam.partial_dependence(term=int(index), X=XX) + offset, label=label)
+    if logistic:
+        ax.plot(XX[:, index], scipy.stats.norm.cdf(gam.partial_dependence(term=int(index), X=XX)) +offset, label=label)
+    else:
+        ax.plot(XX[:, index], gam.partial_dependence(term=int(index), X=XX) +offset, label=label)
 
     ax.hlines(0, x1, x2, colors="k", linestyles='dashed', label='')
 

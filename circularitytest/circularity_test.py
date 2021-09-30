@@ -116,7 +116,8 @@ class Circularity_Test():
 
         plot_gam_terms(self.config.get("plot", {}), gam, features,
                        circular_features=self.circular_features, title=title,
-                       decision_funct=self.config.get("decision_function") if bool_decision_funct else None)
+                       decision_funct=self.config.get("decision_function") if bool_decision_funct else None,
+                       logistic= "binomial" == (self.config.get("GAM") or {}).get("distribution", "normal"))
 
     def store_result_table(self, sorted_result_gams):
         """
@@ -126,8 +127,7 @@ class Circularity_Test():
         """
 
         df = pd.DataFrame(sorted_result_gams,
-                          columns=['Features', 'GAM', 'Deviance Explained', "Effective Degrees of Freedom"]).drop('GAM',
-                                                                                                                  1)
+                          columns=['Features', 'GAM', 'Deviance Explained', "Effective Degrees of Freedom"]).drop('GAM', 1)
         df.to_csv(self.config.get("save_result_csv"))
 
 

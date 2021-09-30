@@ -7,7 +7,7 @@ def main():
 
     argp = argparse.ArgumentParser("Circularity_test")
 
-    argp.add_argument("--config_path", type=str, default="configs/kidney_sofa_dist_example.yaml",
+    argp.add_argument("--config_path", type=str, default="configs/ir_example.yaml",
                     help="path to YAML config file")
 
     args = argp.parse_args()
